@@ -21,47 +21,73 @@ public class Main {
         // Componentes para agregar multas
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
         inputPanel.add(new JLabel("Código:"), gbc);
         gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         JTextField codigoField = new JTextField(15);
         inputPanel.add(codigoField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.EAST;
         inputPanel.add(new JLabel("Nombre del Infractor:"), gbc);
         gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         JTextField nombreField = new JTextField(15);
         inputPanel.add(nombreField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
         inputPanel.add(new JLabel("Tipo de Multa (LEVE, MEDIO, GRAVE):"), gbc);
         gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         JTextField tipoField = new JTextField(15);
         inputPanel.add(tipoField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         JButton agregarButton = new JButton("Agregar Multa");
         inputPanel.add(agregarButton, gbc);
 
         // Panel para los botones de acciones
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 4, 5, 5));
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints buttonGbc = new GridBagConstraints();
+        buttonGbc.insets = new Insets(5, 5, 5, 5);
+        buttonGbc.gridx = 0;
+        buttonGbc.gridy = 0;
+        buttonGbc.anchor = GridBagConstraints.CENTER;
+
         JButton buscarButton = new JButton("Buscar Multa");
         JButton pagarButton = new JButton("Pagar Multa");
         JButton imprimirButton = new JButton("Imprimir Multas");
         JButton infoButton = new JButton("Información del Sistema");
 
-        buttonPanel.add(buscarButton);
-        buttonPanel.add(pagarButton);
-        buttonPanel.add(imprimirButton);
-        buttonPanel.add(infoButton);
+        buttonPanel.add(buscarButton, buttonGbc);
+        buttonGbc.gridx++;
+        buttonPanel.add(pagarButton, buttonGbc);
+        buttonGbc.gridx++;
+        buttonPanel.add(imprimirButton, buttonGbc);
+        buttonGbc.gridx++;
+        buttonPanel.add(infoButton, buttonGbc);
 
         // Añadir paneles al frame
-        frame.add(inputPanel, BorderLayout.NORTH);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints mainGbc = new GridBagConstraints();
+        mainGbc.insets = new Insets(5, 5, 5, 5);
+        mainGbc.gridx = 0;
+        mainGbc.gridy = 0;
+        mainPanel.add(inputPanel, mainGbc);
+
+        mainGbc.gridy++;
+        mainPanel.add(buttonPanel, mainGbc);
+
+        frame.add(mainPanel, BorderLayout.CENTER);
 
         // Acción para agregar multas
         agregarButton.addActionListener(new ActionListener() {
